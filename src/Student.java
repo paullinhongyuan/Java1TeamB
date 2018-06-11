@@ -14,7 +14,6 @@ public class Student {
 		this.studentEmail = email;
 	}
 	
-	
 	//Getters and setters
 	public String getFirstName() {
 		return this.studentFirstName;
@@ -57,7 +56,7 @@ public class Student {
 	//View courses Enrolled
 	public void listEnrolledCourses() {
 		for(Course myCourse: this.courseEnrolled) {
-			System.out.println(myCourse);
+			System.out.println(myCourse);  //update to myCourse.name for example
 		}
 	}
 }
