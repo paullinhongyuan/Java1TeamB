@@ -1,7 +1,8 @@
+import java.util.*;
 
 public class Student {
 	private String studentFirstName, studentLastName, studentEmail;
-	private String[] courseEnrolled;
+	private List<Course> courseEnrolled = new ArrayList<Course>();
 	private int studentID;
 	static int studentIDCounter = 0;
 
@@ -41,11 +42,11 @@ public class Student {
 	//email cannot be changed once created/verified.
 	
 	//Add or remove courses
-	public void addCourse() {
-		
+	public void addCourse(Course newCourse) {
+		this.courseEnrolled.add(newCourse);
 	}
 	
-	public void removeCourse() {
-		
+	public void removeCourse(Course oldCourse) {
+		this.courseEnrolled.remove(oldCourse);
 	}
 }
