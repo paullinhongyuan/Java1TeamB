@@ -42,11 +42,22 @@ public class Student {
 	//email cannot be changed once created/verified.
 	
 	//Add or remove courses
-	public void addCourse(Course newCourse) {
+	public void registerCourse(Course newCourse) {
+		//Will update to first check the Course max enrollment once the Course Class is complete
 		this.courseEnrolled.add(newCourse);
 	}
 	
+	//Could possibly return a boolean based on how this will be called.
 	public void removeCourse(Course oldCourse) {
-		this.courseEnrolled.remove(oldCourse);
+		if(this.courseEnrolled.contains(oldCourse)) {
+			this.courseEnrolled.remove(oldCourse);
+		}
+	}
+	
+	//View courses Enrolled
+	public void listEnrolledCourses() {
+		for(Course myCourse: this.courseEnrolled) {
+			System.out.println(myCourse);
+		}
 	}
 }
