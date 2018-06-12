@@ -7,6 +7,7 @@ public class Student {
 	static int studentIDCounter = 0;
 
 	public Student(String firstName, String lastName, String email) {
+		//studentId increments for every student
 		++studentIDCounter;
 		this.studentID = studentIDCounter;
 		this.studentFirstName = firstName;
