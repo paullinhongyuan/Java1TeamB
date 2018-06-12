@@ -5,22 +5,22 @@ public class Course {
     
     
     Course(String id, String name, int size){
-        courseID = id;
-        courseName = name;
-        classSize  = size;
+        this.courseID = id;
+        this.courseName = name;
+        this.classSize  = size;
     }
     
     public String getCourseName() {
-        return courseName;
+        return this.courseName;
     }
     
     
     public String getCourseID() {
-        return courseID;
+        return this.courseID;
     }
     
     public int getClassSize() {
-        return classSize;
+        return this.classSize;
     }
    
 }
