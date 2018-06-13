@@ -6,3 +6,4 @@
 130, Design Patterns, 10
 210, Python Basics, 10
 220, Object Oriented Design with Python, 15
+310, Advanced Python, 10
