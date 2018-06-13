@@ -2,7 +2,7 @@ import java.util.*;
 
 public class Student {
 	private String studentFirstName, studentLastName, studentEmail;
-	private List<Course> coursesEnrolled = new ArrayList<Course>();
+	private List<String> coursesEnrolled = new ArrayList<String>();
 	private int studentID;
 	static int studentIDCounter = 0;
 
@@ -32,6 +32,10 @@ public class Student {
 		return this.studentID;
 	}
 	
+	public List<String> getEnrolledList(){
+		return this.coursesEnrolled;
+	}
+	
 	public void setFirstName(String firstName) {
 		this.studentFirstName = firstName;
 	}
@@ -42,21 +46,22 @@ public class Student {
 	//email cannot be changed once created/verified.
 	
 	//Add or remove courses
-	public void registerCourse(Course newCourse) {
+	public void registerCourse(String newCourse) {
 		//Only occurs after we first check the Course max enrollment once the Course Class is complete
 		this.coursesEnrolled.add(newCourse);
 	}
 	
 	//Could possibly return a boolean based on how this will be called.
 	public void removeCourse(Course oldCourse) {
-		if(this.coursesEnrolled.contains(oldCourse)) {
-			this.coursesEnrolled.remove(oldCourse);
+		if(this.coursesEnrolled.contains(oldCourse.getCourseID())) {
+			this.coursesEnrolled.remove(oldCourse.getCourseID());
 		}
 	}
 	
 	//View courses Enrolled
 	public void listEnrolledCourses() {
-		for(Course myCourse: this.coursesEnrolled) {
+		for(String myCourseId: this.coursesEnrolled) {
+			Course myCourse = Registration.findCourse(myCourseId);
 			System.out.println(myCourse.getCourseName());  //update to myCourse.name for example
 		}
 	}

@@ -46,6 +46,20 @@ public class Course{
     		return false;
     }
     
+    public boolean removeStudent(Student newStudent) {
+		for(Student student : this.studentList) {
+		if(student.getEmail().equals(newStudent.getEmail())){
+			return false;
+		}
+	}
+		studentList.remove(newStudent);
+		if(this.getNumberEnrolled() > 0) {
+			--this.numberEnrolled;
+			return true;
+		}
+		return false;
+}
+    
     public static Comparator<Course> courseNameComparator = new Comparator<Course>() {
 
 	    	public int compare(Course c1, Course c2) {
