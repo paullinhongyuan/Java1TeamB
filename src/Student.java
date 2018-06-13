@@ -2,7 +2,7 @@ import java.util.*;
 
 public class Student {
 	private String studentFirstName, studentLastName, studentEmail;
-	private List<Course> courseEnrolled = new ArrayList<Course>();
+	private List<Course> coursesEnrolled = new ArrayList<Course>();
 	private int studentID;
 	static int studentIDCounter = 0;
 
@@ -43,21 +43,21 @@ public class Student {
 	
 	//Add or remove courses
 	public void registerCourse(Course newCourse) {
-		//Will update to first check the Course max enrollment once the Course Class is complete
-		this.courseEnrolled.add(newCourse);
+		//Only occurs after we first check the Course max enrollment once the Course Class is complete
+		this.coursesEnrolled.add(newCourse);
 	}
 	
 	//Could possibly return a boolean based on how this will be called.
 	public void removeCourse(Course oldCourse) {
-		if(this.courseEnrolled.contains(oldCourse)) {
-			this.courseEnrolled.remove(oldCourse);
+		if(this.coursesEnrolled.contains(oldCourse)) {
+			this.coursesEnrolled.remove(oldCourse);
 		}
 	}
 	
 	//View courses Enrolled
 	public void listEnrolledCourses() {
-		for(Course myCourse: this.courseEnrolled) {
-			System.out.println(myCourse);  //update to myCourse.name for example
+		for(Course myCourse: this.coursesEnrolled) {
+			System.out.println(myCourse.getCourseName());  //update to myCourse.name for example
 		}
 	}
 }
