@@ -22,9 +22,9 @@ public class Registration {
 
 			while (scFile.hasNextLine()) {
 				String line = scFile.nextLine();
-			    String[] elements = line.split(", ");
-			    if(elements.length == 4) {
-			    		availableCourses.add(new Course(elements[0], elements[1], Integer.parseInt(elements[2])));
+			    String[] elements = line.split(";");
+			    if(elements.length == 6) {
+			    		availableCourses.add(new Course(elements[0].trim(), elements[1].trim(), Integer.parseInt(elements[2].trim()), Integer.parseInt(elements[3].trim()), elements[4].trim(), elements[5].trim()));
 			    }
 			    else {
 			    		System.out.println("Invalid input in Course Source .txt");
@@ -39,16 +39,13 @@ public class Registration {
 
 			while (scFile.hasNextLine()) {
 				String line = scFile.nextLine();
-			    String[] elements = line.split(", ");
-			    for(String element : elements) {
-			    		System.out.println(element);
-			    }
+			    String[] elements = line.split(",");
 			    if(elements.length == 3 && !elements[0].equals("  Enrolled Courses")) {
-			    		Student newStudent = new Student(elements[0], elements[1], elements[2]);
+			    		Student newStudent = new Student(elements[0].trim(), elements[1].trim(), elements[2].trim());
 			    		String enrolledLine = scFile.nextLine();
 					String[] enrolled = enrolledLine.split("[:,]");
 					for(String value : enrolled) {
-						if(!value.equals("  Enrolled Courses")) {
+						if(!value.equals("Enrolled Courses")) {
 							newStudent.registerCourse(value);	
 						}
 					}
@@ -132,11 +129,16 @@ public class Registration {
 	        writer = new FileWriter(studentfile);
 	        for(Student student : studentList) {
 	        		writer.write(student.getFirstName() + ", " + student.getLastName() + ", " + student.getEmail() + "\n");
-	        		writer.write("  Enrolled Courses: ");
+	        		writer.write("Enrolled Courses: ");
+	        		String prefix = "";
 	        		for(String courseId : student.getEnrolledList()) {
 //	        			System.out.println(courseId);
-	        			if(!courseId.equals("  Enrolled Courses")) {
-	        				writer.write(courseId + ", ");
+	        			if(!courseId.equals("Enrolled Courses")) {
+	        				if(!courseId.equals(",")) {
+	        					writer.write(prefix);
+	        					prefix = ", ";
+	        					writer.write(courseId);
+	        				}
 	        			}
 	        		}
 	        		writer.write("\n");
@@ -152,7 +154,7 @@ public class Registration {
 	    try {
 	        writer = new FileWriter(coursefile);
 	        for(Course course : availableCourses) {
-	        		writer.write(course.getCourseID() + ", " + course.getCourseName() + ", " +  course.getClassSize() + ", " + course.getNumberEnrolled() + "\n");
+	        		writer.write(course.getCourseID() + "; " + course.getCourseName() + "; " +  course.getClassSize() + "; " + course.getNumberEnrolled() + "; " + course.getCourseSummary() + "; " + course.getCourseDates() + "\n");
 	        }
 	    } catch (IOException e) {
 	        e.printStackTrace(); 
@@ -173,9 +175,9 @@ public class Registration {
 		System.out.println("To return to the main menu enter, M");
 		//get the list of course id's the student is enrolled in then find and list the course details
 		for(String courseId : currentStudent.getEnrolledList()) {
-			System.out.println(courseId);
-			Course course = findCourse(courseId);
-			System.out.println(course.getCourseID() + ", " + course.getCourseName());
+//			System.out.println(courseId.trim());
+			Course course = findCourse(courseId.trim());
+			System.out.println("Course Id: " + course.getCourseID() + ", Course Name: " + course.getCourseName() + ", Class Size: " + course.getClassSize() + ", Currently Enrolled: " + course.getNumberEnrolled() + "\n   Course Dates: " + course.getCourseDates());
 		}
 		try {
 			String courseId = sc.next();
@@ -196,6 +198,8 @@ public class Registration {
 					if(response.equalsIgnoreCase("YES")) {
 						if(course.removeStudent(currentStudent)) {
 							currentStudent.removeCourse(course);
+							System.out.println("You have unregistered from Course: "  + course.getCourseName());
+							listCourses();
 						}
 					}
 					else {
@@ -223,7 +227,7 @@ public class Registration {
 		for(Course course : availableCourses) {
 			//Only prints courses in which the number enrolled is less than the max course size.
 			if(course.getNumberEnrolled() < course.getClassSize()) {
-				System.out.println(course.getCourseID() + ", " + course.getCourseName());
+				System.out.println("Course Id: " + course.getCourseID() + ", Course Name: " + course.getCourseName() + "\n      Class Size: " + course.getClassSize() + ", Currently Enrolled: " + course.getNumberEnrolled() + "\n      Course Detail: " + course.getCourseSummary() + "\n      Course Dates: " + course.getCourseDates() + "\n");
 			}
 		}
 		
@@ -266,7 +270,7 @@ public class Registration {
 		Collections.sort(availableCourses, Course.courseNameComparator);
 		
 		for(Course course : availableCourses) {
-			System.out.println(course.getCourseID() + ", " + course.getCourseName());
+			System.out.println("Course Id: " + course.getCourseID() + ", Course Name: " + course.getCourseName() + "\n      Class Size: " + course.getClassSize() + ", Currently Enrolled: " + course.getNumberEnrolled() + "\n      Course Detail: " + course.getCourseSummary() + "\n      Course Dates: " + course.getCourseDates() + "\n");
 		}
 		System.out.println();
 		System.out.println("To register for a course enter R.");
@@ -315,6 +319,7 @@ public class Registration {
 				listCourses();
 				break;
 			case 4:
+				System.out.println("Goodbye!");
 				break;
 			default:
 				System.out.println("You must enter either 1, 2, or 3");

@@ -6,14 +6,17 @@ public class Course{
     private String courseName;
     private int classSize;
     private int numberEnrolled;
+    private String courseSummary, courseDates;
     private List<Student> studentList = new ArrayList<Student>();
     
     
-    Course(String id, String name, int size){
+    Course(String id, String name, int size, int enrolled, String summary, String dates){
         this.courseID = id;
         this.courseName = name;
         this.classSize  = size;
-        this.numberEnrolled = 0;
+        this.numberEnrolled = enrolled;
+        this.courseSummary = summary;
+        this.courseDates = dates;
     }
     
     public String getCourseName() {
@@ -30,6 +33,14 @@ public class Course{
     
     public int getNumberEnrolled() {
     		return this.numberEnrolled;
+    }
+    
+    public String getCourseSummary() {
+    		return this.courseSummary;
+    }
+    
+    public String getCourseDates() {
+    		return this.courseDates;
     }
     
     public boolean enrollStudent(Student newStudent) {
