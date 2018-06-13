@@ -2,7 +2,7 @@ import java.util.*;
 import java.io.File;
 import java.io.FileNotFoundException;
 
-public class RegistrationB {
+public class Registration {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
